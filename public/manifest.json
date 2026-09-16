@@ -1,0 +1,21 @@
+{
+  "name": "AquaGuard AI — Smart Water Management",
+  "short_name": "AquaGuard",
+  "description": "AI-Powered Smart Water Tank Management & Automatic Pump Controller",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070d1e",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

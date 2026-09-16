@@ -1,0 +1,299 @@
+// AquaGuard AI — Production Prisma Schema
+// Compatible with PostgreSQL & SQLite
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // Can switch to "postgresql" via DATABASE_URL
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id          String     @id @default(cuid())
+  name        String
+  code        String     @unique
+  plan        String     @default("ENTERPRISE")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  buildings   Building[]
+  users       User[]
+  auditLogs   AuditLog[]
+}
+
+model User {
+  id             String        @id @default(cuid())
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  email          String        @unique
+  name           String
+  role           String        @default("USER") // ADMIN, MANAGER, USER
+  phone          String?
+  avatarUrl      String?
+  canControlPump Boolean       @default(false)
+  canSchedule    Boolean       @default(false)
+  canEditSafety  Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  pumpEvents     PumpEvent[]
+  auditLogs      AuditLog[]
+  notifications  Notification[]
+}
+
+model Building {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  name           String
+  address        String
+  tanks          Tank[]
+  pumps          Pump[]
+  devices        IoTDevice[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Tank {
+  id             String             @id @default(cuid())
+  buildingId     String
+  building       Building           @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  name           String
+  type           String             // OVERHEAD, SOURCE, SUMP, RAINWATER
+  capacityLiters Float
+  currentLiters  Float
+  currentLevelPct Float
+  lowThreshold   Float              @default(25.0)
+  fullThreshold  Float              @default(95.0)
+  minSafeLevel   Float              @default(20.0) // For source tanks (dry-run)
+  status         String             @default("NORMAL") // CRITICAL, LOW, NORMAL, HIGH, FULL
+  sensors        Sensor[]
+  readings       WaterReading[]
+  flowReadings   FlowReading[]
+  tempReadings   TemperatureReading[]
+  consumptions   WaterConsumption[]
+  sourcePumps    Pump[]             @relation("SourceTank")
+  destPumps      Pump[]             @relation("DestTank")
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+}
+
+model Pump {
+  id             String         @id @default(cuid())
+  buildingId     String
+  building       Building       @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  sourceTankId   String
+  sourceTank     Tank           @relation("SourceTank", fields: [sourceTankId], references: [id])
+  destTankId     String
+  destTank       Tank           @relation("DestTank", fields: [destTankId], references: [id])
+  name           String
+  powerKw        Float          @default(1.5)
+  flowRateLpm    Float          @default(50.0)
+  status         String         @default("OFF") // OFF, ON, LOCKED, FAULT
+  mode           String         @default("AUTO") // AUTO, MANUAL
+  maxRuntimeMins Int            @default(45)
+  currentRuntime Int            @default(0) // Seconds
+  isEmergencyStop Boolean       @default(false)
+  dryRunLocked   Boolean        @default(false)
+  totalHoursRun  Float          @default(142.5)
+  events         PumpEvent[]
+  schedules      PumpSchedule[]
+  maintenance    MaintenanceLog[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model IoTDevice {
+  id             String        @id @default(cuid())
+  deviceId       String        @unique // e.g. AQUA-IOT-001
+  buildingId     String
+  building       Building      @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  name           String
+  firmwareVersion String       @default("2.4.1")
+  ipAddress      String?
+  macAddress     String?
+  status         String        @default("ONLINE") // ONLINE, UNSTABLE, OFFLINE
+  rssi           Int           @default(-58)
+  lastSeen       DateTime      @default(now())
+  isBattery      Boolean       @default(false)
+  batteryPct     Float?
+  sensors        Sensor[]
+  deviceEvents   DeviceEvent[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Sensor {
+  id             String        @id @default(cuid())
+  tankId         String
+  tank           Tank          @relation(fields: [tankId], references: [id], onDelete: Cascade)
+  deviceId       String
+  device         IoTDevice     @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  type           String        // WATER_LEVEL, FLOW_RATE, TEMPERATURE
+  model          String        // e.g. HC-SR04, YF-S201, DS18B20
+  status         String        @default("HEALTHY") // HEALTHY, WARNING, FAULT, OFFLINE
+  lastReading    Float?
+  unit           String        // %, L/min, °C
+  calibratedAt   DateTime      @default(now())
+  calibrationData String?      // JSON string for offsets
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model WaterReading {
+  id             String    @id @default(cuid())
+  tankId         String
+  tank           Tank      @relation(fields: [tankId], references: [id], onDelete: Cascade)
+  eventId        String    @unique // Idempotency key from IoT
+  levelPct       Float
+  liters         Float
+  rawDistanceCm  Float?
+  qualityScore   Float     @default(1.0) // 0 to 1
+  isAnomaly      Boolean   @default(false)
+  timestamp      DateTime  @default(now())
+
+  @@index([tankId, timestamp])
+}
+
+model FlowReading {
+  id             String    @id @default(cuid())
+  tankId         String
+  tank           Tank      @relation(fields: [tankId], references: [id], onDelete: Cascade)
+  eventId        String    @unique
+  flowRateLpm    Float
+  totalLiters    Float
+  pumpState      Boolean
+  timestamp      DateTime  @default(now())
+
+  @@index([tankId, timestamp])
+}
+
+model TemperatureReading {
+  id             String    @id @default(cuid())
+  tankId         String
+  tank           Tank      @relation(fields: [tankId], references: [id], onDelete: Cascade)
+  waterCelsius   Float
+  ambientCelsius Float?
+  timestamp      DateTime  @default(now())
+}
+
+model PumpEvent {
+  id             String    @id @default(cuid())
+  pumpId         String
+  pump           Pump      @relation(fields: [pumpId], references: [id], onDelete: Cascade)
+  userId         String?
+  user           User?     @relation(fields: [userId], references: [id])
+  action         String    // TURN_ON, TURN_OFF, DRY_RUN_LOCK, EMERGENCY_STOP, AUTO_STOP, MAX_RUNTIME_STOP
+  reason         String
+  sourceTankLevel Float
+  destTankLevel   Float
+  durationSeconds Int?
+  litersTransferred Float?
+  timestamp      DateTime  @default(now())
+}
+
+model PumpSchedule {
+  id             String    @id @default(cuid())
+  pumpId         String
+  pump           Pump      @relation(fields: [pumpId], references: [id], onDelete: Cascade)
+  name           String
+  startTime      String    // "06:00"
+  durationMins   Int       // 30
+  daysOfWeek     String    // "MON,TUE,WED,THU,FRI,SAT,SUN"
+  enabled        Boolean   @default(true)
+  lastRunAt      DateTime?
+  nextRunAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model WaterConsumption {
+  id             String    @id @default(cuid())
+  tankId         String
+  tank           Tank      @relation(fields: [tankId], references: [id], onDelete: Cascade)
+  date           String    // YYYY-MM-DD
+  hourlySlot     Int?      // 0-23
+  litersConsumed Float
+  pumpRuntimeMins Float
+  leakageSuspected Boolean @default(false)
+  anomalyScore   Float     @default(0.0)
+}
+
+model Alert {
+  id             String    @id @default(cuid())
+  organizationId String
+  code           String    // DRY_RUN_ACTIVE, OVERFLOW_RISK, LEAKAGE_DETECTED, DEVICE_OFFLINE, MAX_RUNTIME_EXCEEDED
+  title          String
+  message        String
+  severity       String    // CRITICAL, WARNING, INFO, RESOLVED
+  isRead         Boolean   @default(false)
+  isResolved     Boolean   @default(false)
+  resolvedAt     DateTime?
+  resolvedBy     String?
+  timestamp      DateTime  @default(now())
+}
+
+model Notification {
+  id             String    @id @default(cuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title          String
+  message        String
+  type           String    // PUSH, EMAIL, IN_APP
+  isRead         Boolean   @default(false)
+  timestamp      DateTime  @default(now())
+}
+
+model AIInsight {
+  id             String    @id @default(cuid())
+  tankId         String
+  type           String    // CONSUMPTION_PREDICTION, LEAKAGE_DETECTION, ANOMALY_ALERT, REFILL_ESTIMATE
+  predictionText String
+  confidencePct  Float
+  reason         String
+  modelVersion   String    @default("v3.2.0-rf")
+  metadataJson   String?   // Extra chart data
+  createdAt      DateTime  @default(now())
+}
+
+model MaintenanceLog {
+  id             String    @id @default(cuid())
+  pumpId         String
+  pump           Pump      @relation(fields: [pumpId], references: [id], onDelete: Cascade)
+  technicianName String
+  serviceType    String    // IMPELLER_INSPECTION, BEARING_LUBRICATION, MOTOR_REWIND, SENSOR_CLEAN
+  notes          String
+  cost           Float?
+  servicedAt     DateTime  @default(now())
+  nextServiceDue DateTime
+}
+
+model AuditLog {
+  id             String        @id @default(cuid())
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String?
+  user           User?         @relation(fields: [userId], references: [id])
+  actorName      String
+  action         String        // PUMP_START, PUMP_STOP, EMERGENCY_STOP, SETTINGS_CHANGE, SCHEDULE_CREATE, LOGIN
+  details        String
+  ipAddress      String?
+  severity       String        @default("INFO") // INFO, WARN, SECURITY
+  timestamp      DateTime      @default(now())
+}
+
+model DeviceEvent {
+  id             String    @id @default(cuid())
+  deviceId       String
+  device         IoTDevice @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  eventType      String    // CONNECTED, DISCONNECTED, REBOOT, POWER_FAIL, POWER_RESTORE, PACKET_DROP
+  payload        String?
+  timestamp      DateTime  @default(now())
+}
+
+model SystemEvent {
+  id             String    @id @default(cuid())
+  category       String    // AUTOMATION, SAFETY, POWER_RECOVERY
+  description    String
+  timestamp      DateTime  @default(now())
+}

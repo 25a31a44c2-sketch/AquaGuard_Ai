@@ -1,0 +1,363 @@
+/* AquaGuard AI — Premium Design System & Stylesheet */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Colors */
+  --bg-space: #060b18;
+  --bg-surface-1: #0a1128;
+  --bg-surface-2: #0f1c3f;
+  --bg-card: rgba(15, 28, 63, 0.7);
+  --bg-card-hover: rgba(22, 40, 86, 0.85);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(14, 165, 233, 0.3);
+  --border-glow: rgba(14, 165, 233, 0.6);
+
+  /* Primary Accent: Aquatic Cyan */
+  --cyan-400: #38bdf8;
+  --cyan-500: #0ea5e9;
+  --cyan-600: #0284c7;
+  --cyan-glow: rgba(14, 165, 233, 0.4);
+
+  /* Emerald */
+  --emerald-400: #34d399;
+  --emerald-500: #10b981;
+  --emerald-glow: rgba(16, 185, 129, 0.4);
+
+  /* Amber Warning */
+  --amber-400: #fbbf24;
+  --amber-500: #f59e0b;
+  --amber-glow: rgba(245, 158, 11, 0.4);
+
+  /* Crimson Critical / Emergency */
+  --rose-400: #f87171;
+  --rose-500: #ef4444;
+  --rose-glow: rgba(239, 68, 68, 0.5);
+
+  /* Text */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+  background-color: var(--bg-space);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphic Container */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.glass-panel-glow {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-accent);
+  box-shadow: 0 0 25px -5px var(--cyan-glow);
+  border-radius: 1rem;
+}
+
+.glass-emergency {
+  background: rgba(45, 10, 15, 0.85);
+  backdrop-filter: blur(16px);
+  border: 2px solid var(--rose-500);
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+  animation: pulseEmergency 2s infinite ease-in-out;
+}
+
+@keyframes pulseEmergency {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.4);
+    border-color: rgba(239, 68, 68, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 45px rgba(239, 68, 68, 0.8);
+    border-color: #ff8888;
+  }
+}
+
+/* Fluid Wave Animation for Tanks */
+@keyframes waveMove {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(0.85);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+}
+
+@keyframes waveBackMove {
+  0% {
+    transform: translateX(-50%) translateZ(0) scaleY(0.9);
+  }
+  50% {
+    transform: translateX(-20%) translateZ(0) scaleY(1.1);
+  }
+  100% {
+    transform: translateX(0) translateZ(0) scaleY(0.9);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes flowDots {
+  0% {
+    stroke-dashoffset: 24;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.pipe-flowing {
+  stroke-dasharray: 6 6;
+  animation: flowDots 0.8s linear infinite;
+}
+
+/* Status Indicators */
+.led-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.led-green {
+  background-color: var(--emerald-500);
+  box-shadow: 0 0 10px var(--emerald-500);
+  animation: pulseGlow 2s infinite;
+}
+
+.led-amber {
+  background-color: var(--amber-500);
+  box-shadow: 0 0 10px var(--amber-500);
+  animation: pulseGlow 1.5s infinite;
+}
+
+.led-red {
+  background-color: var(--rose-500);
+  box-shadow: 0 0 12px var(--rose-500);
+  animation: pulseGlow 1s infinite;
+}
+
+/* Custom Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--cyan-500), var(--cyan-600));
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px var(--cyan-glow);
+  font-size: 0.925rem;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--cyan-glow);
+  filter: brightness(1.1);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+  font-weight: 500;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.925rem;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--rose-500), #dc2626);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 18px var(--rose-glow);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--rose-glow);
+  filter: brightness(1.15);
+}
+
+.btn-success {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--emerald-500), #059669);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px var(--emerald-glow);
+}
+
+.btn-success:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--emerald-glow);
+}
+
+/* Badge Styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge-cyan {
+  background: rgba(14, 165, 233, 0.15);
+  color: var(--cyan-400);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.badge-emerald {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--emerald-400);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-amber {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--amber-400);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-rose {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--rose-400);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-space);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 11, 24, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* Float simulation badge */
+.demo-banner {
+  background: linear-gradient(90deg, #d97706, #b45309);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}

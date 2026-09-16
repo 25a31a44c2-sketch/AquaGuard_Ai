@@ -1,0 +1,965 @@
+{
+  "tanks": [
+    {
+      "id": "tank-overhead-1",
+      "name": "Overhead Tank (Building A)",
+      "type": "OVERHEAD",
+      "building": "Building A — Horizon Heights",
+      "capacityLiters": 2000,
+      "currentLiters": 1910,
+      "currentLevelPct": 95.5,
+      "lowThreshold": 30,
+      "fullThreshold": 95,
+      "minSafeLevel": 20,
+      "status": "FULL",
+      "flowRateLpm": 0,
+      "temperatureCelsius": 27.5,
+      "sensorHealth": "HEALTHY",
+      "lastUpdated": "2026-09-16T09:21:49.435Z"
+    },
+    {
+      "id": "tank-source-1",
+      "name": "Source Sump Tank (Building A)",
+      "type": "SOURCE",
+      "building": "Building A — Horizon Heights",
+      "capacityLiters": 2000,
+      "currentLiters": 740,
+      "currentLevelPct": 37,
+      "lowThreshold": 20,
+      "fullThreshold": 95,
+      "minSafeLevel": 20,
+      "status": "LOW",
+      "flowRateLpm": 0,
+      "temperatureCelsius": 25.8,
+      "sensorHealth": "HEALTHY",
+      "lastUpdated": "2026-09-16T09:21:49.435Z"
+    },
+    {
+      "id": "tank-overhead-2",
+      "name": "Overhead Tank (Building B)",
+      "type": "OVERHEAD",
+      "building": "Building B — Palm Residency",
+      "capacityLiters": 2000,
+      "currentLiters": 560,
+      "currentLevelPct": 28,
+      "lowThreshold": 30,
+      "fullThreshold": 95,
+      "minSafeLevel": 20,
+      "status": "LOW",
+      "flowRateLpm": 0,
+      "temperatureCelsius": null,
+      "sensorHealth": "HEALTHY",
+      "lastUpdated": "2026-09-16T09:05:58.037Z"
+    },
+    {
+      "id": "tank-source-2",
+      "name": "Source Sump Tank (Building B)",
+      "type": "SOURCE",
+      "building": "Building B — Palm Residency",
+      "capacityLiters": 2000,
+      "currentLiters": 1100,
+      "currentLevelPct": 55,
+      "lowThreshold": 20,
+      "fullThreshold": 95,
+      "minSafeLevel": 20,
+      "status": "NORMAL",
+      "flowRateLpm": 0,
+      "temperatureCelsius": 26.2,
+      "sensorHealth": "HEALTHY",
+      "lastUpdated": "2026-09-16T09:05:58.037Z"
+    }
+  ],
+  "pumps": [
+    {
+      "id": "pump-alpha-1",
+      "name": "Main Transfer Pump Alpha-1 (1.5 kW)",
+      "building": "Building A — Horizon Heights",
+      "sourceTankId": "tank-source-1",
+      "destTankId": "tank-overhead-1",
+      "status": "OFF",
+      "mode": "MANUAL",
+      "powerKw": 1.5,
+      "flowRateLpm": 0,
+      "maxRuntimeMinutes": 45,
+      "currentRuntimeSeconds": 0,
+      "isEmergencyStop": false,
+      "dryRunLocked": false,
+      "totalHoursRun": 142.519166666666,
+      "totalWaterTransferredLiters": 1380,
+      "lastCommand": {
+        "action": "ON",
+        "status": "CONFIRMED",
+        "initiatedBy": "ADMIN (Web Console)",
+        "timestamp": "2026-09-16T09:19:30.574Z",
+        "reason": "Manual remote ON command confirmed by IoT controller."
+      }
+    },
+    {
+      "id": "pump-beta-2",
+      "name": "Transfer Pump Beta-2 (1.0 kW)",
+      "building": "Building B — Palm Residency",
+      "sourceTankId": "tank-source-2",
+      "destTankId": "tank-overhead-2",
+      "status": "OFF",
+      "mode": "AUTO",
+      "powerKw": 1,
+      "flowRateLpm": 0,
+      "maxRuntimeMinutes": 30,
+      "currentRuntimeSeconds": 0,
+      "isEmergencyStop": false,
+      "dryRunLocked": false,
+      "totalHoursRun": 88.2,
+      "totalWaterTransferredLiters": 0,
+      "lastCommand": {
+        "action": "OFF",
+        "status": "CONFIRMED",
+        "initiatedBy": "SYSTEM",
+        "timestamp": "2026-09-16T09:05:58.037Z",
+        "reason": "Initial system standby"
+      }
+    }
+  ],
+  "pumpHistory": [
+    {
+      "id": "hist-1789550393693",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:49 PM",
+      "stopTime": "02:49 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 460,
+      "reason": "Tank Full",
+      "initiatedBy": "Full Level Sensor",
+      "timestamp": "2026-09-16T09:19:53.694Z"
+    },
+    {
+      "id": "hist-1789550370574",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:49 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "ADMIN (Web Console)",
+      "timestamp": "2026-09-16T09:19:30.574Z"
+    },
+    {
+      "id": "hist-1789549981542",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:42 PM",
+      "stopTime": "02:43 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 80,
+      "reason": "Manual",
+      "initiatedBy": "ADMIN (Web Console)",
+      "timestamp": "2026-09-16T09:13:01.542Z"
+    },
+    {
+      "id": "hist-1789549977489",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:42 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "ADMIN (Web Console)",
+      "timestamp": "2026-09-16T09:12:57.489Z"
+    },
+    {
+      "id": "hist-1789549926334",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:42 PM",
+      "stopTime": "02:42 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 20,
+      "reason": "Tank Full",
+      "initiatedBy": "Full Level Sensor",
+      "timestamp": "2026-09-16T09:12:06.335Z"
+    },
+    {
+      "id": "hist-1789549926330",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:42 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "Authorized User",
+      "timestamp": "2026-09-16T09:12:06.330Z"
+    },
+    {
+      "id": "hist-1789549925014",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:42 PM",
+      "stopTime": "02:42 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 20,
+      "reason": "Source Tank Low",
+      "initiatedBy": "Dry-Run Sensor",
+      "timestamp": "2026-09-16T09:12:05.015Z"
+    },
+    {
+      "id": "hist-1789549923979",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:42 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Automatic",
+      "initiatedBy": "Automated Control",
+      "timestamp": "2026-09-16T09:12:03.979Z"
+    },
+    {
+      "id": "hist-1789549921899",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:41 PM",
+      "stopTime": "02:42 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 40,
+      "reason": "Manual",
+      "initiatedBy": "Verification Test",
+      "timestamp": "2026-09-16T09:12:01.900Z"
+    },
+    {
+      "id": "hist-1789549919656",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:41 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "Verification Test",
+      "timestamp": "2026-09-16T09:11:59.656Z"
+    },
+    {
+      "id": "hist-1789549801424",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:39 PM",
+      "stopTime": "02:40 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 460,
+      "reason": "Tank Full",
+      "initiatedBy": "Full Level Sensor",
+      "timestamp": "2026-09-16T09:10:01.424Z"
+    },
+    {
+      "id": "hist-1789549778600",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:39 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "ADMIN (Web Console)",
+      "timestamp": "2026-09-16T09:09:38.601Z"
+    },
+    {
+      "id": "hist-1789549759088",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:39 PM",
+      "stopTime": "02:39 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 20,
+      "reason": "Tank Full",
+      "initiatedBy": "Full Level Sensor",
+      "timestamp": "2026-09-16T09:09:19.088Z"
+    },
+    {
+      "id": "hist-1789549758521",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:39 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "Authorized User",
+      "timestamp": "2026-09-16T09:09:18.522Z"
+    },
+    {
+      "id": "hist-1789549757136",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:39 PM",
+      "stopTime": "02:39 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 20,
+      "reason": "Source Tank Low",
+      "initiatedBy": "Dry-Run Sensor",
+      "timestamp": "2026-09-16T09:09:17.136Z"
+    },
+    {
+      "id": "hist-1789549756093",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:39 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Automatic",
+      "initiatedBy": "Automated Control",
+      "timestamp": "2026-09-16T09:09:16.093Z"
+    },
+    {
+      "id": "hist-1789549753991",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:39 PM",
+      "stopTime": "02:39 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 40,
+      "reason": "Manual",
+      "initiatedBy": "Verification Test",
+      "timestamp": "2026-09-16T09:09:13.991Z"
+    },
+    {
+      "id": "hist-1789549751668",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:39 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "Verification Test",
+      "timestamp": "2026-09-16T09:09:11.668Z"
+    },
+    {
+      "id": "hist-1789549733087",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:38 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Automatic",
+      "initiatedBy": "Automated Control",
+      "timestamp": "2026-09-16T09:08:53.087Z"
+    },
+    {
+      "id": "hist-1789549732037",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:38 PM",
+      "stopTime": "02:38 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 20,
+      "reason": "Source Tank Low",
+      "initiatedBy": "Dry-Run Sensor",
+      "timestamp": "2026-09-16T09:08:52.038Z"
+    },
+    {
+      "id": "hist-1789549731005",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:38 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Automatic",
+      "initiatedBy": "Automated Control",
+      "timestamp": "2026-09-16T09:08:51.005Z"
+    },
+    {
+      "id": "hist-1789549728929",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:38 PM",
+      "stopTime": "02:38 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 60,
+      "reason": "Manual",
+      "initiatedBy": "Verification Test",
+      "timestamp": "2026-09-16T09:08:48.929Z"
+    },
+    {
+      "id": "hist-1789549726690",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:38 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "Verification Test",
+      "timestamp": "2026-09-16T09:08:46.690Z"
+    },
+    {
+      "id": "hist-1789549721519",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:38 PM",
+      "stopTime": "02:38 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 80,
+      "reason": "Manual",
+      "initiatedBy": "ADMIN (Web Console)",
+      "timestamp": "2026-09-16T09:08:41.519Z"
+    },
+    {
+      "id": "hist-1789549717546",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:38 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "ADMIN (Web Console)",
+      "timestamp": "2026-09-16T09:08:37.546Z"
+    },
+    {
+      "id": "hist-1789549673174",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:37 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "Authorized User",
+      "timestamp": "2026-09-16T09:07:53.174Z"
+    },
+    {
+      "id": "hist-1789549669057",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "02:37 PM",
+      "stopTime": "02:37 PM",
+      "runtimeMinutes": 1,
+      "waterTransferredLiters": 40,
+      "reason": "Manual",
+      "initiatedBy": "Verification Test",
+      "timestamp": "2026-09-16T09:07:49.057Z"
+    },
+    {
+      "id": "hist-1789549666816",
+      "pumpId": "pump-alpha-1",
+      "action": "START",
+      "startTime": "02:37 PM",
+      "runtimeMinutes": 0,
+      "waterTransferredLiters": 0,
+      "reason": "Manual",
+      "initiatedBy": "Verification Test",
+      "timestamp": "2026-09-16T09:07:46.816Z"
+    },
+    {
+      "id": "hist-init-1",
+      "pumpId": "pump-alpha-1",
+      "action": "STOP",
+      "startTime": "01:35 PM",
+      "stopTime": "01:50 PM",
+      "runtimeMinutes": 15,
+      "waterTransferredLiters": 300,
+      "reason": "Tank Full",
+      "initiatedBy": "Automatic",
+      "timestamp": "2026-09-16T08:20:59.099Z"
+    }
+  ],
+  "schedules": [
+    {
+      "id": "sched-1",
+      "name": "Morning Fill Routine",
+      "startTime": "06:00",
+      "durationMinutes": 20,
+      "daysOfWeek": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "enabled": true,
+      "nextRun": "Tomorrow at 06:00 AM",
+      "status": "IDLE"
+    },
+    {
+      "id": "sched-2",
+      "name": "Evening Top-Up Window",
+      "startTime": "18:30",
+      "durationMinutes": 15,
+      "daysOfWeek": [
+        "Mon",
+        "Wed",
+        "Fri"
+      ],
+      "enabled": true,
+      "nextRun": "Today at 06:30 PM",
+      "status": "IDLE"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alt-1789549760426-ew81",
+      "code": "EMERGENCY_STOP_RESET",
+      "title": "Emergency Stop Disengaged",
+      "message": "System returned to safe standby. Normal automated control resumed.",
+      "severity": "INFO",
+      "isRead": false,
+      "isResolved": false,
+      "timestamp": "2026-09-16T09:09:20.426Z"
+    },
+    {
+      "id": "alt-1789549760325-z836",
+      "code": "EMERGENCY_STOP_TRIGGERED",
+      "title": "🚨 EMERGENCY STOP ENGAGED",
+      "message": "Immediate pump shutdown executed. All automated and manual pump starts locked.",
+      "severity": "CRITICAL",
+      "isRead": false,
+      "isResolved": false,
+      "timestamp": "2026-09-16T09:09:20.325Z"
+    },
+    {
+      "id": "alt-1789549759088-g3go",
+      "code": "TANK_FULL_STOP",
+      "title": "✓ Pump Automatically Stopped",
+      "message": "Overhead tank reached 95% capacity (1910 / 2000 L). Water transfer stopped.",
+      "severity": "INFO",
+      "isRead": false,
+      "isResolved": false,
+      "timestamp": "2026-09-16T09:09:19.088Z"
+    },
+    {
+      "id": "alt-1789549732038-bmb2",
+      "code": "SOURCE_TANK_LOW",
+      "title": "🚨 Pump Stopped: Source Tank Too Low",
+      "message": "Pump stopped because the source tank level (0.0%) is below the minimum safe level (20%). Pump locked to prevent dry running.",
+      "severity": "CRITICAL",
+      "isRead": false,
+      "isResolved": false,
+      "timestamp": "2026-09-16T09:08:52.038Z"
+    },
+    {
+      "id": "alt-1789549731005-90j1",
+      "code": "AUTO_PUMP_ON",
+      "title": "⚠️ Tank Level Low — Automatic Pump Started",
+      "message": "Overhead tank level is 25.0% (500 L). Pump automatically started to refill.",
+      "severity": "INFO",
+      "isRead": false,
+      "isResolved": false,
+      "timestamp": "2026-09-16T09:08:51.005Z"
+    },
+    {
+      "id": "alt-1789549669057-ouuv",
+      "code": "MANUAL_PUMP_OFF",
+      "title": "Manual Pump Stopped",
+      "message": "Verification Test turned Pump OFF. Filling stopped.",
+      "severity": "INFO",
+      "isRead": false,
+      "isResolved": false,
+      "timestamp": "2026-09-16T09:07:49.057Z"
+    },
+    {
+      "id": "alt-1789549666816-643l",
+      "code": "MANUAL_PUMP_ON",
+      "title": "Manual Pump Started",
+      "message": "Verification Test turned Pump ON. Filling overhead tank.",
+      "severity": "INFO",
+      "isRead": false,
+      "isResolved": false,
+      "timestamp": "2026-09-16T09:07:46.816Z"
+    },
+    {
+      "id": "alt-001",
+      "code": "SYSTEM_ONLINE",
+      "title": "AquaGuard AI Engine Activated",
+      "message": "All sensors and controller heartbeats validated. Safety priority logic active.",
+      "severity": "INFO",
+      "isRead": true,
+      "isResolved": true,
+      "timestamp": "2026-09-16T09:05:59.100Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "aud-1789550393694-ahmr",
+      "actor": "AUTO_ENGINE",
+      "role": "SYSTEM",
+      "action": "AUTO_STOP_FULL",
+      "details": "Overhead tank full at 95.5%. Pump stopped automatically.",
+      "timestamp": "2026-09-16T09:19:53.694Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789550370574-c4wl",
+      "actor": "ADMIN (Web Console)",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:19:30.574Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549981542-dvoi",
+      "actor": "ADMIN (Web Console)",
+      "role": "USER",
+      "action": "MANUAL_PUMP_OFF",
+      "details": "Turned pump OFF manually via web dashboard",
+      "timestamp": "2026-09-16T09:13:01.542Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549977489-efqp",
+      "actor": "ADMIN (Web Console)",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:12:57.489Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549928708-2296",
+      "actor": "Lead Admin",
+      "role": "ADMIN",
+      "action": "SAFETY_SETTINGS_UPDATED",
+      "details": "Settings: Low=30%, Full=95%, MinSource=20%, MaxRun=45m, OverheadCap=2000L, SourceCap=2000L",
+      "timestamp": "2026-09-16T09:12:08.708Z",
+      "severity": "WARN"
+    },
+    {
+      "id": "aud-1789549928150-qsja",
+      "actor": "Lead Admin",
+      "role": "ADMIN",
+      "action": "EMERGENCY_STOP_RESET",
+      "details": "Emergency Stop reset verified. System safety state restored.",
+      "timestamp": "2026-09-16T09:12:08.150Z",
+      "severity": "SECURITY"
+    },
+    {
+      "id": "aud-1789549928018-yl9u",
+      "actor": "Emergency Test",
+      "role": "ADMIN",
+      "action": "EMERGENCY_STOP_ACTIVATED",
+      "details": "Global Emergency Stop button pressed. Pump hardware contactor opened.",
+      "timestamp": "2026-09-16T09:12:08.018Z",
+      "severity": "SECURITY"
+    },
+    {
+      "id": "aud-1789549926335-jzv2",
+      "actor": "AUTO_ENGINE",
+      "role": "SYSTEM",
+      "action": "AUTO_STOP_FULL",
+      "details": "Overhead tank full at 95.5%. Pump stopped automatically.",
+      "timestamp": "2026-09-16T09:12:06.335Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549926330-rzjx",
+      "actor": "Authorized User",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:12:06.330Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549926329-2rdj",
+      "actor": "Authorized User",
+      "role": "MANAGER",
+      "action": "PUMP_MODE_CHANGE",
+      "details": "Pump control mode switched to AUTO",
+      "timestamp": "2026-09-16T09:12:06.329Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549925015-lfv5",
+      "actor": "SAFETY_ENGINE",
+      "role": "SYSTEM",
+      "action": "DRY_RUN_LOCK",
+      "details": "Source tank dropped to 0.0% (0 L). Pump shut down.",
+      "timestamp": "2026-09-16T09:12:05.015Z",
+      "severity": "WARN"
+    },
+    {
+      "id": "aud-1789549923979-3oep",
+      "actor": "AUTO_ENGINE",
+      "role": "SYSTEM",
+      "action": "AUTO_START",
+      "details": "Started pump automatically to refill Overhead Tank.",
+      "timestamp": "2026-09-16T09:12:03.979Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549923959-mk4e",
+      "actor": "Authorized User",
+      "role": "MANAGER",
+      "action": "PUMP_MODE_CHANGE",
+      "details": "Pump control mode switched to AUTO",
+      "timestamp": "2026-09-16T09:12:03.959Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549921900-5pvw",
+      "actor": "Verification Test",
+      "role": "USER",
+      "action": "MANUAL_PUMP_OFF",
+      "details": "Turned pump OFF manually via web dashboard",
+      "timestamp": "2026-09-16T09:12:01.900Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549919656-al56",
+      "actor": "Verification Test",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:11:59.656Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549801424-8scr",
+      "actor": "AUTO_ENGINE",
+      "role": "SYSTEM",
+      "action": "AUTO_STOP_FULL",
+      "details": "Overhead tank full at 95.5%. Pump stopped automatically.",
+      "timestamp": "2026-09-16T09:10:01.424Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549778601-v9uy",
+      "actor": "ADMIN (Web Console)",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:09:38.601Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549760504-z8io",
+      "actor": "Lead Admin",
+      "role": "ADMIN",
+      "action": "SAFETY_SETTINGS_UPDATED",
+      "details": "Settings: Low=30%, Full=95%, MinSource=20%, MaxRun=45m, OverheadCap=2000L, SourceCap=2000L",
+      "timestamp": "2026-09-16T09:09:20.504Z",
+      "severity": "WARN"
+    },
+    {
+      "id": "aud-1789549760426-l7vy",
+      "actor": "Lead Admin",
+      "role": "ADMIN",
+      "action": "EMERGENCY_STOP_RESET",
+      "details": "Emergency Stop reset verified. System safety state restored.",
+      "timestamp": "2026-09-16T09:09:20.426Z",
+      "severity": "SECURITY"
+    },
+    {
+      "id": "aud-1789549760325-8pn0",
+      "actor": "Emergency Test",
+      "role": "ADMIN",
+      "action": "EMERGENCY_STOP_ACTIVATED",
+      "details": "Global Emergency Stop button pressed. Pump hardware contactor opened.",
+      "timestamp": "2026-09-16T09:09:20.325Z",
+      "severity": "SECURITY"
+    },
+    {
+      "id": "aud-1789549759088-1x49",
+      "actor": "AUTO_ENGINE",
+      "role": "SYSTEM",
+      "action": "AUTO_STOP_FULL",
+      "details": "Overhead tank full at 95.5%. Pump stopped automatically.",
+      "timestamp": "2026-09-16T09:09:19.088Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549758522-mgbh",
+      "actor": "Authorized User",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:09:18.522Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549758520-4sl0",
+      "actor": "Authorized User",
+      "role": "MANAGER",
+      "action": "PUMP_MODE_CHANGE",
+      "details": "Pump control mode switched to AUTO",
+      "timestamp": "2026-09-16T09:09:18.520Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549757136-nrc2",
+      "actor": "SAFETY_ENGINE",
+      "role": "SYSTEM",
+      "action": "DRY_RUN_LOCK",
+      "details": "Source tank dropped to 0.0% (0 L). Pump shut down.",
+      "timestamp": "2026-09-16T09:09:17.136Z",
+      "severity": "WARN"
+    },
+    {
+      "id": "aud-1789549756093-oo56",
+      "actor": "AUTO_ENGINE",
+      "role": "SYSTEM",
+      "action": "AUTO_START",
+      "details": "Started pump automatically to refill Overhead Tank.",
+      "timestamp": "2026-09-16T09:09:16.093Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549756060-4rg6",
+      "actor": "Authorized User",
+      "role": "MANAGER",
+      "action": "PUMP_MODE_CHANGE",
+      "details": "Pump control mode switched to AUTO",
+      "timestamp": "2026-09-16T09:09:16.060Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549753992-f2n3",
+      "actor": "Verification Test",
+      "role": "USER",
+      "action": "MANUAL_PUMP_OFF",
+      "details": "Turned pump OFF manually via web dashboard",
+      "timestamp": "2026-09-16T09:09:13.992Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549751668-g145",
+      "actor": "Verification Test",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:09:11.668Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549733103-9qzm",
+      "actor": "Lead Admin",
+      "role": "ADMIN",
+      "action": "SAFETY_SETTINGS_UPDATED",
+      "details": "Settings: Low=30%, Full=95%, MinSource=20%, MaxRun=45m, OverheadCap=2000L, SourceCap=2000L",
+      "timestamp": "2026-09-16T09:08:53.103Z",
+      "severity": "WARN"
+    },
+    {
+      "id": "aud-1789549733087-g4wb",
+      "actor": "AUTO_ENGINE",
+      "role": "SYSTEM",
+      "action": "AUTO_START",
+      "details": "Started pump automatically to refill Overhead Tank.",
+      "timestamp": "2026-09-16T09:08:53.087Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549732038-4hob",
+      "actor": "SAFETY_ENGINE",
+      "role": "SYSTEM",
+      "action": "DRY_RUN_LOCK",
+      "details": "Source tank dropped to 0.0% (0 L). Pump shut down.",
+      "timestamp": "2026-09-16T09:08:52.038Z",
+      "severity": "WARN"
+    },
+    {
+      "id": "aud-1789549731005-91y2",
+      "actor": "AUTO_ENGINE",
+      "role": "SYSTEM",
+      "action": "AUTO_START",
+      "details": "Started pump automatically to refill Overhead Tank.",
+      "timestamp": "2026-09-16T09:08:51.005Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549730988-5d52",
+      "actor": "Authorized User",
+      "role": "MANAGER",
+      "action": "PUMP_MODE_CHANGE",
+      "details": "Pump control mode switched to AUTO",
+      "timestamp": "2026-09-16T09:08:50.988Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549728929-dq93",
+      "actor": "Verification Test",
+      "role": "USER",
+      "action": "MANUAL_PUMP_OFF",
+      "details": "Turned pump OFF manually via web dashboard",
+      "timestamp": "2026-09-16T09:08:48.929Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549726690-2euw",
+      "actor": "Verification Test",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:08:46.690Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549721519-65d1",
+      "actor": "ADMIN (Web Console)",
+      "role": "USER",
+      "action": "MANUAL_PUMP_OFF",
+      "details": "Turned pump OFF manually via web dashboard",
+      "timestamp": "2026-09-16T09:08:41.519Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549717546-eu5v",
+      "actor": "ADMIN (Web Console)",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:08:37.546Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549673510-e59h",
+      "actor": "Lead Admin",
+      "role": "ADMIN",
+      "action": "SAFETY_SETTINGS_UPDATED",
+      "details": "Settings: Low=30%, Full=95%, MinSource=20%, MaxRun=45m, OverheadCap=2000L, SourceCap=2000L",
+      "timestamp": "2026-09-16T09:07:53.510Z",
+      "severity": "WARN"
+    },
+    {
+      "id": "aud-1789549673174-co8o",
+      "actor": "Authorized User",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:07:53.174Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549669057-ao22",
+      "actor": "Verification Test",
+      "role": "USER",
+      "action": "MANUAL_PUMP_OFF",
+      "details": "Turned pump OFF manually via web dashboard",
+      "timestamp": "2026-09-16T09:07:49.057Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-1789549666816-9c25",
+      "actor": "Verification Test",
+      "role": "USER",
+      "action": "MANUAL_PUMP_ON",
+      "details": "Turned pump ON manually via web dashboard (Flow: 20 L/min)",
+      "timestamp": "2026-09-16T09:07:46.816Z",
+      "severity": "INFO"
+    },
+    {
+      "id": "aud-001",
+      "actor": "Charan (Lead Admin)",
+      "role": "ADMIN",
+      "action": "SYSTEM_BOOT",
+      "details": "AquaGuard AI controller initialized with 2000L Overhead Tank capacity",
+      "timestamp": "2026-09-16T09:05:59.100Z",
+      "severity": "INFO"
+    }
+  ],
+  "aiInsights": {
+    "overheadTimeToEmpty": "6h 14m",
+    "confidencePct": 88,
+    "dailyUsageAverageLiters": 480,
+    "todayUsageLiters": 46,
+    "usageDifferencePct": 0,
+    "leakageStatus": "NONE",
+    "leakageDifferencePct": 0,
+    "recommendedRefillsTomorrow": 2,
+    "anomalyScore": 0.05,
+    "modelVersion": "v3.4.2-neural"
+  }
+}
